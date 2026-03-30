@@ -27,7 +27,7 @@
       @for (product of filteredProducts; track product.id) {
         <div class="product-card">
           <div class="product-image">
-            <img [src]="product.images[0]" [alt]="product.name">
+            <img [src]="getSafeImageUrl(product.images[0])" [alt]="product.name">
             @if (product.featured) {
               <span class="featured">🌟 Destacado</span>
             }
