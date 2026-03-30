@@ -1,10 +1,11 @@
+// src/app/models/product.model.ts
 export interface Product {
   id?: string;
   name: string;
   description: string;
   price: number;
   unit: string;
-  category: 'huevos' | 'quesos' | 'miel';
+  category: 'huevos' | 'quesos' | 'miel' | 'aceite';
   stock: number;
   images: string[];
   featured: boolean;
