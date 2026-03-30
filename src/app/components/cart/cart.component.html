@@ -1,0 +1,51 @@
+<!-- Botón flotante del carrito -->
+<button class="cart-toggle" (click)="toggleCart()">
+  🛒 <span class="badge" *ngIf="itemCount() > 0">{{ itemCount() }}</span>
+</button>
+
+<!-- Panel lateral del carrito -->
+<div class="cart-sidebar" [class.open]="isOpen">
+  <div class="cart-header">
+    <h2>🛒 Tu Carrito</h2>
+    <button class="close-btn" (click)="toggleCart()">✖</button>
+  </div>
+
+  @if (items().length === 0) {
+    <div class="cart-empty">
+      <p>Tu carrito está vacío</p>
+      <p>🥚 ¡Agrega productos del campo!</p>
+    </div>
+  } @else {
+    <div class="cart-items">
+      @for (item of items(); track item.productId) {
+        <div class="cart-item">
+          <img [src]="item.image" [alt]="item.name">
+          <div class="item-info">
+            <h4>{{ item.name }}</h4>
+            <p class="price">${{ item.price | number }}</p>
+            <div class="quantity">
+              <button (click)="updateQuantity(item.productId, item.quantity - 1)">-</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="updateQuantity(item.productId, item.quantity + 1)">+</button>
+            </div>
+          </div>
+          <div class="item-total">
+            <p>${{ (item.price * item.quantity) | number }}</p>
+            <button class="remove" (click)="removeItem(item.productId)">🗑️</button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="cart-footer">
+      <div class="total">
+        <strong>Total:</strong>
+        <span>${{ total() | number }}</span>
+      </div>
+      <button class="btn-checkout" (click)="checkout()">
+        📱 Comprar por WhatsApp
+      </button>
+      <p class="shipping-info">🚚 Envíos a toda la Región del Maule</p>
+    </div>
+  }
+</div>

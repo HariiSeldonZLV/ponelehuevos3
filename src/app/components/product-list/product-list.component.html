@@ -1,0 +1,62 @@
+<div class="product-list">
+  <div class="hero">
+    <h1>🥚 PONELE HUEVOS 🥚</h1>
+    <p>Del campo a tu mesa con amor y tradición</p>
+  </div>
+
+  <div class="filters">
+    @for (cat of categories; track cat.value) {
+      <button
+        class="filter-btn"
+        [class.active]="selectedCategory === cat.value"
+        (click)="selectedCategory = cat.value; applyFilter()">
+        {{ cat.label }}
+      </button>
+    }
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Cargando productos...</p>
+    </div>
+  }
+
+  @if (!loading) {
+    <div class="products-grid">
+      @for (product of filteredProducts; track product.id) {
+        <div class="product-card">
+          <div class="product-image">
+            <img [src]="product.images[0]" [alt]="product.name">
+            @if (product.featured) {
+              <span class="featured">🌟 Destacado</span>
+            }
+          </div>
+          <div class="product-info">
+            <h3>{{ product.name }}</h3>
+            <p class="description">{{ product.description }}</p>
+            <div class="price-row">
+              <span class="price">${{ product.price | number }}</span>
+              <span class="unit">/ {{ product.unit }}</span>
+            </div>
+            <div class="stock" [class.low]="product.stock < 10">
+              📦 {{ product.stock }} {{ product.unit }} disponibles
+            </div>
+            <button
+              class="btn-add"
+              (click)="addToCart(product)"
+              [disabled]="product.stock === 0">
+              🛒 Agregar al carrito
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (!loading && filteredProducts.length === 0) {
+    <div class="empty">
+      <p>No hay productos en esta categoría</p>
+    </div>
+  }
+</div>

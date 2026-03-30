@@ -1,0 +1,9 @@
+{
+  "buildCommand": "ng build --configuration production",
+  "outputDirectory": "dist/ponele-huevos/browser",
+  "framework": "angular",
+  "installCommand": "npm install",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
