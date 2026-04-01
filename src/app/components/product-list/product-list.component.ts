@@ -169,16 +169,19 @@ export class ProductListComponent implements OnInit {
   }
 
   applyFilter(): void {
-    console.log('applyFilter ejecutado, categoría:', this.selectedCategory);
-    if (this.selectedCategory === 'todos') {
-      this.filteredProducts = [...this.products];
-    } else {
-      this.filteredProducts = this.products.filter(
-        p => p.category === this.selectedCategory
-      );
-    }
-    console.log('Productos filtrados:', this.filteredProducts.length);
+  console.log('applyFilter ejecutado, categoría seleccionada:', this.selectedCategory);
+  console.log('Todos los productos:', this.products.map(p => ({ name: p.name, category: p.category })));
+
+  if (this.selectedCategory === 'todos') {
+    this.filteredProducts = [...this.products];
+  } else {
+    this.filteredProducts = this.products.filter(p => {
+      console.log(`Comparando: ${p.category} === ${this.selectedCategory} = ${p.category === this.selectedCategory}`);
+      return p.category === this.selectedCategory;
+    });
   }
+  console.log('Productos filtrados:', this.filteredProducts.length);
+}
 
   addToCart(product: Product): void {
     console.log('Agregando al carrito:', product.name);
