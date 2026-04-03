@@ -45,3 +45,15 @@ Thumbs.db
 
 # Environment files with real keys
 src/environments/*.local.ts
+src/environments/*.prod.ts
+# OS files
+.DS_Store?  # Ya lo tienes, bien!
+
+# Docker (si usas)
+.docker/
+docker-compose.override.yml
+
+# Secrets (si usas)
+*.pem
+*.key
+.secrets/
