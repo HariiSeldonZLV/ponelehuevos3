@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';  // ← Importar Router
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { CartService } from '../../services/cart.service';
 })
 export class CartComponent {
   private cartService = inject(CartService);
+  private router = inject(Router);  // ← Inyectar Router
 
   items = this.cartService.items;
   total = this.cartService.getTotal;
@@ -30,7 +32,11 @@ export class CartComponent {
   }
 
   checkout(): void {
-    const url = this.cartService.generateWhatsAppMessage();
-    window.open(url, '_blank');
+  if (this.items().length === 0) {
+    alert('El carrito está vacío');
+    return;
   }
+  const url = this.cartService.generateWhatsAppMessage();
+  window.location.href = url;
+}
 }

@@ -210,7 +210,7 @@ export class CartService {
     ).join('\n');
 
     const total = this.getTotal();
-    const phone = '56912345678'; // Número del negocio (sin el +56)
+    const phone = '56982627475'; // Número del negocio (sin el +56)
 
     // Validar que el teléfono sea válido
     const cleanPhone = phone.replace(/\D/g, '');

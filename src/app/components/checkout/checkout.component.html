@@ -1,0 +1,90 @@
+<div class="checkout-container">
+  <div class="header">
+    <h1>📋 Finalizar Pedido</h1>
+    <p>Completa tus datos para confirmar la compra</p>
+  </div>
+
+  <div class="checkout-grid">
+    <!-- Resumen del pedido -->
+    <div class="resumen">
+      <h2>🛒 Resumen del pedido</h2>
+      <div class="resumen-items">
+        <div *ngFor="let item of items()" class="resumen-item">
+          <span>{{ item.name }} x{{ item.quantity }}</span>
+          <span>${{ (item.price * item.quantity) | number }}</span>
+        </div>
+      </div>
+      <div class="resumen-total">
+        <div class="linea">
+          <span>Subtotal:</span>
+          <span>${{ subtotal | number }}</span>
+        </div>
+        <div class="linea">
+          <span>Envío:</span>
+          <span>${{ shippingCost | number }}</span>
+        </div>
+        <div class="linea total">
+          <strong>Total:</strong>
+          <strong>${{ total | number }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario de datos -->
+    <div class="formulario">
+      <h2>📝 Datos de envío</h2>
+
+      <div *ngIf="error" class="error">{{ error }}</div>
+
+      <div class="form-group">
+        <label>Nombre completo *</label>
+        <input type="text" [(ngModel)]="shippingInfo.nombre" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" [(ngModel)]="shippingInfo.email" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono *</label>
+        <input type="tel" [(ngModel)]="shippingInfo.telefono" class="form-control" placeholder="+56 9 1234 5678">
+      </div>
+
+      <div class="form-group">
+        <label>Dirección *</label>
+        <input type="text" [(ngModel)]="shippingInfo.direccion" class="form-control" placeholder="Calle, número, block">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Comuna *</label>
+          <input type="text" [(ngModel)]="shippingInfo.comuna" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Región *</label>
+          <select [(ngModel)]="shippingInfo.region" class="form-control">
+            <option value="">Selecciona una región</option>
+            <option *ngFor="let region of regiones" [value]="region">{{ region }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Notas adicionales</label>
+        <textarea [(ngModel)]="shippingInfo.notas" class="form-control" rows="3" placeholder="¿Algo que debamos saber?"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Método de pago</label>
+        <select class="form-control" disabled>
+          <option>Transferencia bancaria (recibirás datos por WhatsApp)</option>
+        </select>
+      </div>
+
+      <button class="btn-confirmar" (click)="enviarPedido()" [disabled]="loading">
+        {{ loading ? 'PROCESANDO...' : 'CONFIRMAR PEDIDO' }}
+      </button>
+    </div>
+  </div>
+</div>
